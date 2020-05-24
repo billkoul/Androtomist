@@ -1,0 +1,150 @@
+﻿@model Androtomist.Models.Database.Entities.Process;
+@inherits Androtomist.Models.Database.FormElement<TModel>
+
+@{
+    ViewData["Title"] = "Process";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<style>
+    .dz-progress {
+        display: none;
+    }
+</style>
+@inject Microsoft.AspNetCore.Antiforgery.IAntiforgery Xsrf
+@functions{
+    public string GetAntiXsrfRequestToken()
+    {
+        return Xsrf.GetAndStoreTokens(Context).RequestToken;
+    }
+}
+<!--begin::Portlet-->
+<div class="kt-portlet">
+    <div class="kt-portlet__head">
+        <div class="kt-portlet__head-label">
+            <h3 class="kt-portlet__head-title">
+                Analyze file
+            </h3>
+        </div>
+    </div>
+    <!--begin::Form-->
+    <form id="form_new_process" class="m-form m-form--label-align-right" novalidate="novalidate" enctype="multipart/form-data">
+        <input type="hidden" id="RequestVerificationToken"
+               name="RequestVerificationToken" value="@GetAntiXsrfRequestToken()">
+        <div class="kt-portlet__body">
+            <input type="hidden" name="P_ID" value="@(Model.Exists() ? Model.P_ID : -1)" />
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="form-group m-form__group">
+                        <label for="P_NAME">Process Title</label><span class="m-form__help"></span>
+                        @{ F(INPUT.P_NAME); }
+                        <div class="invalid-feedback">This field is required.</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="form-group m-form__group">
+                        <label for="PTYPE_ID">Process Type</label><span class="m-form__help"></span>
+                        @{ F(INPUT.P_TYPE_ID); }
+                        <div class="invalid-feedback">This field is required.</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="form-group m-form__group">
+                        <label for="P_FILE_ID">File</label><span class="m-form__help"></span>
+                        @{ F(INPUT.P_FILE_ID); }
+                        <div class="invalid-feedback">This field is required.</div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+        <div class="m-portlet__foot m-portlet__foot--fit">
+            <div class="m-form__actions m-form__actions">
+                <div class="row">
+                    <div class="col-lg-9">
+                        @{
+                            if (Model.Exists())
+                            {
+                                <button type="button" class="btn btn-success" id="submit_it" name="submit_it">Analyze</button>
+                            }
+                            else
+                            {
+                                <button type="button" class="btn btn-success" id="submit_it" name="submit_it">Analyze</button>
+                            }
+                        }
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+    <!--end::Form-->
+</div>
+<!--end::Portlet-->
+<div id="myModal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content" style="border: 0px !important; background-color: transparent !important;">
+            <div class="modal-body">
+                <img src="" class="img-responsive">
+            </div>
+        </div>
+    </div>
+</div>
+
+@section ScriptsFooter{
+    <script type="text/javascript">
+		var form_elem = $('#form_new_process');
+        $(document).ready(function () {
+
+            //$("#PTYPE_ID").select2();
+            //$("#P_FILE_ID").select2();
+            $('#P_FILE_ID').val('@ViewData["file_id"]').trigger('change');
+
+            $("#submit_it").on("click", function () {
+                $("#submit_it").prop('disabled', true);
+
+                $.ajax({
+                    url: '/analysis/analysis/newanalysis/',
+                    type: 'POST',
+                    data: {
+                        formJson: JSON.stringify(form_elem.serializeArray())
+                    },
+                    headers: {
+                        "Content-type": "application/x-www-form-urlencoded",
+                        "RequestVerificationToken": $('#RequestVerificationToken').val()
+                    },
+                    dataType: 'json',
+                    success: function (data) {
+                        if (data["result"] == "1") {
+                            window.location = "/results/results/file/" + data["msg"];
+                        } else {
+                            Swal.fire({
+                                title: 'Something went wrong!',
+                                text: 'Only static analysis is allowed in demo account',
+                                icon: 'error',
+                                confirmButtonText: 'Ok'
+                            });
+                            $("#submit_it").prop('disabled', false);
+                        }
+                    },
+                    error: function (data) {
+                        Swal.fire({
+                            title: 'Something went wrong!',
+                            text: 'Only static analysis is allowed in demo account',
+                            icon: 'error',
+                            confirmButtonText: 'Ok'
+                        });
+                        $("#submit_it").prop('disabled', false);
+                    }
+                });
+
+            });
+
+		});
+
+    </script>
+}

@@ -1,0 +1,61 @@
+﻿@{
+    ViewData["Title"] = "Dashboard";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<p>This process starts an automated analysis with all APK files in database with the following labels.</p>
+@{
+    //All samples used in this process must have the same file_label for each of the classes (malware,goodware) in a_file table.
+    //Please update them manually in a_file table if needed.
+}
+<p>The signature based detection will be calibrated with the results from this process!</p>
+
+<div>
+    <label for="goodware">Goodware Label</label>
+    <input type="text" name="goodware" id="goodware" class="form-control" />
+</div>
+<div>
+    <label for="malware">Malware Label</label>
+    <input type="text" name="malware" id="malware" class="form-control" />
+</div>
+<br />
+<button id="train" class="btn btn-success">Create training data</button>
+
+
+    @section ScriptsFooter{
+        <script type="text/javascript">
+
+            $(document).ready(function () {
+                $("#train").on("click", function () {
+                    swal.fire({
+                        title: 'Are you sure?',
+                        html: 'This process may erase current data',
+                        customClass: 'alert',
+                        showCancelButton: true,
+                        confirmButtonColor: '#5adfc5',
+                        cancelButtonColor: '#dc3545',
+                        confirmButtonText: 'Confirm',
+                        focusConfirm: false,
+                        allowEnterKey: false
+                    }).then(function (result) {
+                        if (result.value) {
+                            $.post("/train/train/dotrain", { goodware: $('#goodware').val(), malware: $('#malware').val() }, function (data) {
+                                if (data["result"] == "1") {
+                                    swal.fire({
+                                        title: data["msg"],
+                                        showConfirmButton: true
+                                    }).then((result) => {
+                                        window.location = "/";
+                                    });
+                                } else {
+                                    alert(data["msg"]);
+                                }
+                            }, 'json').fail(function () {
+                                alert(data["msg"]);
+                            });
+                        }
+                    });
+                });
+            });
+        </script>
+    }

@@ -1,0 +1,12 @@
+{
+  "compilerOptions": {
+    "outDir": "./built",
+    "allowJs": true,
+    "sourceMap": true,
+    "experimentalDecorators": true
+  },
+  "include": [
+    "./src/**/*.js",
+    "./src/**/*.ts", "../../../../../Models/Database/Datatables/DataTableResults/MeasurementDatatable.cs", "../../../../../Models/Database/Helpers/uPLOADHelper.cs", "../../../../../Models/Database/Helpers/MeasurementHelper.cs", "../../../../../Models/Database/Inserters/UploadInserter.cs", "../../../../../Models/Database/Inserters/MeasurementInserter.cs", "../../../../../Models/Database/Datatables/DataTableResults/InstallationDatatable.cs", "../../../../../Models/Database/Helpers/InstallationHelper.cs", "../../../../../Models/Database/Inserters/InstallationInserter.cs", "../../../../../Models/Database/Datatables/DataTableResults/RoutesDatatable.cs", "../../../../../Models/Database/Helpers/RouteHelper.cs", "../../../../../Models/Database/Inserters/RouteInserter.cs", "../../../../../Areas/Bottles/Controllers/BottlesController.cs", "../../../../../Models/Database/Datatables/DataTableResults/BottlesDatatable.cs", "../../../../../Models/Database/Datatables/DataTableResults/BottleDatatable.cs", "../../../../../Models/Database/Helpers/BottleHelper.cs", "../../../../../Models/Database/Inserters/VehicleInserter.cs", "../../../../../Models/Database/Helpers/VehicleHelper.cs", "../../../../../Areas/Vehicles/Controllers/VehiclesController.cs", "../../../../../Models/Database/Datatables/DataTableResults/VehiclesDatatable.cs", "../../../../../Models/Database/Entities/Route.cs", "../../../../../Models/Database/Entities/Vehicle.cs", "../../../../../Areas/Ajax/Controllers/InputController.cs", "../../../../../Models/Database/Inputs/Types/TypeDate.cs"
+  ]
+}

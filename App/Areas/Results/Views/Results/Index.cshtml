@@ -1,0 +1,23 @@
+﻿@model Androtomist.Models.Database.Datatables.ResultsDatatable;
+
+@{
+    ViewData["Title"] = "Results";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@section ScriptsHeader{
+    <link href="/assets/vendors/custom/datatables/datatables.bundle.css" rel="stylesheet" type="text/css" />
+    <link href="/css/data_table.css" rel="stylesheet" type="text/css" />
+}
+
+@await Component.InvokeAsync("DataTableComponent", new { AbstractDatatable = Model })
+
+@section ScriptsFooter{
+    <script defer src="/assets/vendors/custom/datatables/datatables.bundle.js" type="text/javascript"></script>
+
+    <script defer type="text/javascript">
+        jQuery(document).ready(function ($) {
+            DatatablesSearchOptionsColumnSearch.init();
+        });
+    </script>
+}

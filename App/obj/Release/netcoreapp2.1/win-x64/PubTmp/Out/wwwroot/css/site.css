@@ -1,0 +1,255 @@
+﻿label {
+    font-size: 1rem !important;
+}
+
+.swal2-content {
+    font-size: 0.8rem !important;
+}
+
+.table td {
+    padding-top: 0px !important;
+    padding-bottom: 0px !important;
+}
+
+.table th {
+    padding-top: 0.35rem !important;
+    padding-bottom: 0.35rem !important;
+}
+
+.inner {
+    margin-left: 20px;
+}
+
+input[type=text], input[type=number], input[type=date], select {
+    background-color: rgba(89, 148, 238, 0.1) !important;
+}
+
+.dtr {
+    margin-bottom: -10px;
+}
+
+.xicon {
+    position: absolute;
+    top: 0px;
+    right: 10px;
+    padding: 0px !important;
+    background-color: #dc3545;
+}
+
+    .xicon:hover {
+        background-color: #f5071e !important;
+    }
+
+    .xicon i {
+        padding-right: 0px !important;
+    }
+
+label {
+    margin-bottom: 0px;
+}
+
+.kt-checkbox {
+    padding-bottom: 5px !important;
+}
+
+.checkAll {
+    position: absolute;
+    bottom: 0px;
+    left: 2%;
+    width: 48% !important;
+    border-radius: 0px !important;
+}
+
+.checkNone {
+    position: absolute;
+    bottom: 0px;
+    right: 2%;
+    width: 48% !important;
+    border-radius: 0px !important;
+}
+
+#dtcss table:first-child tr:first-child td:first-child {
+    width: 60px !important;
+    white-space: nowrap;
+    padding-top: 0px !important;
+    padding-bottom: 0px !important;
+}
+
+input::-webkit-datetime-edit-ampm-field {
+    display: none;
+}
+
+#submit_it {
+    width: 49.5% !important;
+    margin-left: 0px;
+}
+
+
+#cancel {
+    width: 49.5% !important;
+    float: right;
+}
+
+.btn-danger {
+    background-color: #dc3545 !important;
+}
+
+
+.btn-danger:hover {
+background-color: #fd397a !important;
+}
+
+.dz-preview {
+    border: 1px dotted #ccc;
+    text-align: center;
+    width: 140px !important;
+    padding: 5px;
+    display: inline-block;
+    margin-right: 10px;
+}
+select.form-control[multiple], select.form-control[size] {
+    display: none !important;
+}
+.select2-container--default .select2-selection--multiple {
+    border: 0px !important;
+}
+
+.select2-selection__rendered{
+    list-style: none !important;
+}
+
+.page-link {
+    padding: 0.35rem 0.75rem !important;
+}
+
+.select2-container {
+    background-color: white;
+    opacity: 0.9;
+}
+
+ul {
+    list-style-type: none !important;
+}
+
+.warning {
+    color: #fd7e14 !important;
+}
+
+.threat {
+    color: #cc0000 !important;
+}
+
+#formContent {
+    -webkit-border-radius: 10px 10px 10px 10px;
+    border-radius: 10px 10px 10px 10px;
+    background: #fff;
+    padding: 30px;
+    width: 90%;
+    max-width: 450px;
+    position: relative;
+    padding: 20px;
+    -webkit-box-shadow: 0 30px 60px 0 rgba(0,0,0,0.3);
+    box-shadow: 0 30px 60px 0 rgba(0,0,0,0.3);
+    text-align: center;
+}
+
+
+.wrapperLogin {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    justify-content: center;
+    width: 100%;
+    min-height: 100%;
+    padding: 20px;
+}
+
+/* ANIMATIONS */
+
+/* Simple CSS3 Fade-in-down Animation */
+.fadeInDown {
+    -webkit-animation-name: fadeInDown;
+    animation-name: fadeInDown;
+    -webkit-animation-duration: 1s;
+    animation-duration: 1s;
+    -webkit-animation-fill-mode: both;
+    animation-fill-mode: both;
+}
+
+@-webkit-keyframes fadeInDown {
+    0% {
+        opacity: 0;
+        -webkit-transform: translate3d(0, -100%, 0);
+        transform: translate3d(0, -100%, 0);
+    }
+
+    100% {
+        opacity: 1;
+        -webkit-transform: none;
+        transform: none;
+    }
+}
+
+@keyframes fadeInDown {
+    0% {
+        opacity: 0;
+        -webkit-transform: translate3d(0, -100%, 0);
+        transform: translate3d(0, -100%, 0);
+    }
+
+    100% {
+        opacity: 1;
+        -webkit-transform: none;
+        transform: none;
+    }
+}
+
+/* Simple CSS3 Fade-in Animation */
+@-webkit-keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+
+    to {
+        opacity: 1;
+    }
+}
+
+@-moz-keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+
+    to {
+        opacity: 1;
+    }
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+
+    to {
+        opacity: 1;
+    }
+}
+
+.fadeIn {
+    opacity: 0;
+    -webkit-animation: fadeIn ease-in 1;
+    -moz-animation: fadeIn ease-in 1;
+    animation: fadeIn ease-in 1;
+    -webkit-animation-fill-mode: forwards;
+    -moz-animation-fill-mode: forwards;
+    animation-fill-mode: forwards;
+    -webkit-animation-duration: 1s;
+    -moz-animation-duration: 1s;
+    animation-duration: 1s;
+}
+
+.dropzone{
+    padding: 10px;
+    min-height: 60px;
+    border: 1px dotted;
+}

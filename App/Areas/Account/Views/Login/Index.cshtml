@@ -1,0 +1,100 @@
+﻿@{
+    ViewData["Title"] = "Login";
+    Layout = null;
+}
+<!DOCTYPE html>
+<html lang="en">
+<!-- begin::Head -->
+<head>
+    <meta charset="utf-8" />
+
+    <title>Androtomist - Login</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <!--begin::Fonts -->
+    <link rel="stylesheet" href="/plugins/fontawesome-free/css/all.min.css">
+    <!-- Ionicons -->
+    <link rel="stylesheet" href="/assets/ionicons.min.css">
+    <!-- Tempusdominus Bbootstrap 4 -->
+    <link rel="stylesheet" href="/plugins/tempusdominus-bootstrap-4/css/tempusdominus-bootstrap-4.min.css">
+    <!-- iCheck -->
+    <link rel="stylesheet" href="/plugins/icheck-bootstrap/icheck-bootstrap.min.css">
+    <!-- JQVMap -->
+    <link rel="stylesheet" href="/plugins/jqvmap/jqvmap.min.css">
+    <!-- Theme style -->
+    <link rel="stylesheet" href="/dist/css/adminlte.min.css">
+    <!-- overlayScrollbars -->
+    <link rel="stylesheet" href="/plugins/overlayScrollbars/css/OverlayScrollbars.min.css">
+    <!-- Daterange picker -->
+    <link rel="stylesheet" href="/plugins/daterangepicker/daterangepicker.css">
+    <!-- summernote -->
+    <link rel="stylesheet" href="/plugins/summernote/summernote-bs4.css">
+    <!-- Google Font: Source Sans Pro -->
+    <link href="/assets/vendors/custom/jquery-ui/jquery-ui.bundle.css" rel="stylesheet" type="text/css" />
+    <link href="/css/site.css?v=1.3" rel="stylesheet" type="text/css" />
+</head>
+<!-- end::Head -->
+<!-- begin::Body -->
+<body style="background-color: #bbb;">
+
+    <div class="wrapperLogin fadeInDown">
+        <!-- begin:: Page -->
+        <div class="logo">
+            <a href="#">
+                <img src="/assets/media/logo.png" width="200">
+            </a>
+        </div>
+        <div id="formContent">
+            <h3>Sign In</h3>
+            <form>
+                <input type="hidden" id="ReturnUrl" name="ReturnUrl" value="@(ViewData["ReturnUrl"])" />
+                <div class="input-group">
+                    <input class="form-control" type="text" placeholder="Username" name="Username" autocomplete="off">
+                </div>
+                <div class="input-group">
+                    <input class="form-control" type="password" placeholder="Password" name="Password">
+                </div>
+                <div class="input-group">
+                    <submit id="submit" class="btn btn-primary">Sign In</submit>
+                </div>
+            </form>
+            <hr />
+            Demo account
+            <br />
+            username: test password: test123
+        </div>
+    </div>
+
+
+        <!-- jQuery -->
+        <script src="/plugins/jquery/jquery.min.js"></script>
+        <!-- <script src="/js/jquery.form.js"></script> -->
+        <!-- Bootstrap 4 -->
+        <script src="/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
+        <!-- ChartJS -->
+        <script src="/plugins/chart.js/Chart.min.js"></script>
+        <!-- Sparkline -->
+        <script src="/plugins/sparklines/sparkline.js"></script>
+        <!-- JQVMap -->
+        <script src="/plugins/jqvmap/jquery.vmap.min.js"></script>
+        <script src="/plugins/jqvmap/maps/jquery.vmap.usa.js"></script>
+        <!-- jQuery K/nob Chart -->
+        <script src="/plugins/jquery-knob/jquery.knob.min.js"></script>
+        <!-- daterangepicker -->
+        <script src="/plugins/moment/moment.min.js"></script>
+        <script src="/plugins/daterangepicker/daterangepicker.js"></script>
+        <!-- Tempusdominus Bootstrap 4 -->
+        <script src="/plugins/tempusdominus-bootstrap-4/js/tempusdominus-bootstrap-4.min.js"></script>
+        <!-- Summernote -->
+        <script src="/plugins/summernote/summernote-bs4.min.js"></script>
+        <!-- overlayScrollbars -->
+        <script src="/plugins/overlayScrollbars/js/jquery.overlayScrollbars.min.js"></script>
+        <!-- AdminLTE App -->
+        <script src="/dist/js/adminlte.js"></script>
+
+        <script src="http://malsup.github.com/jquery.form.js"></script>
+
+        <script src="/js/login.js" type="text/javascript"></script>
+
+</body>
+<!-- end::Body -->
+</html>

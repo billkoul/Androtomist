@@ -1,0 +1,164 @@
+﻿@model Androtomist.Models.Database.Entities.Submission;
+@inherits Androtomist.Models.Database.FormElement<TModel>
+
+@{
+    ViewData["Title"] = "Upload";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@inject Microsoft.AspNetCore.Antiforgery.IAntiforgery Xsrf
+@functions{
+    public string GetAntiXsrfRequestToken()
+    {
+        return Xsrf.GetAndStoreTokens(Context).RequestToken;
+    }
+}
+<style>
+    .dz-progress {
+        display: none;
+    }
+</style>
+<div>
+    <div>
+        <div>
+            <h3>
+                Upload new file
+            </h3>
+        </div>
+    </div>
+    <!--begin::Form-->
+    <form id="form_new_upload" novalidate="novalidate" enctype="multipart/form-data">
+        <input type="hidden" id="RequestVerificationToken"
+               name="RequestVerificationToken" value="@GetAntiXsrfRequestToken()">
+        <div>
+            <label>File label</label>
+            @{ 
+                //FILE_LABEL is useful for sql custom SQL queries, as well as by the training process. 
+                //All APK files uploaded to calibrate the signature-based detection should have the same FILE LABEL
+            }
+
+            @{ F(INPUT.FILE_LABEL); }
+
+        </div>
+        <div>
+
+            @{ F(INPUT.SUB_ID); }
+
+        </div>
+        <div>
+            <div>
+                <div class="row">
+                    <div class="col-lg-9">
+                        @{
+                            <button type="button" class="btn btn-primary" id="submit_it" name="submit_it">Upload</button>
+                        }
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+    <!--end::Form-->
+</div>
+<!--end::Portlet-->
+
+@section ScriptsFooter{
+    <script type="text/javascript">
+        var form_elem = $('#form_new_upload');
+        Dropzone.autoDiscover = false;
+        $(document).ready(function () {
+
+            $(document).on("click", ".upload_remove", function (e) {
+                e.preventDefault();
+
+                var num = parseInt($(this).parent().prop("id").match(/\d+/g), 10);
+
+                $.ajax({
+                    url: '/files/files/deleteupload/' + num,
+                    type: 'POST',
+                    data: {
+                        formJson: JSON.stringify(form_elem.serializeArray())
+                    },
+                    headers: {
+                        "Content-type": "application/x-www-form-urlencoded",
+                        "RequestVerificationToken": $('#RequestVerificationToken').val()
+                    },
+                    dataType: 'json',
+                    success: function (data) {
+                    },
+                    error: function (data) {
+                    }
+                });
+
+                $('#copy' + num).remove();
+
+            });
+
+            $(".input_dropzone").dropzone({
+                url: "/files/files/uploadfiles",
+                uploadMultiple: false,
+                maxFiles: 1,
+                acceptedFiles: ".apk",
+                autoQueue: true,
+                autoProcessQueue: true,
+                maxFilesize: 400,
+                addRemoveLinks: true,
+                timeout: 0,
+                success: function (file, e) {
+                    this.removeAllFiles(true);
+                    var id = "file";
+                    $('#copy1').find('.upload_name').html(file.name);
+                    $('#copy1').find('.upload_size').html(file.size);
+                    $('#copy1').find('.thumbnail').prop('src', '');
+                    $('#copy1').find('.thumbnail').prop('src', file.dataURL);
+                    if (e !== null && !isNaN(e)) {
+                        var id = "file";
+
+                        var count = $('div[target = "' + id + '"]').length;
+                        if (count < 10) {
+                            var $div = $('#copy1[target = "' + id + '"]:last');
+                            var $last = $('div[target = "' + id + '"]:last');
+                            //var num = parseInt($last.prop("id").match(/\d+/g), 10) + 1;
+                            var num = e;
+                            var $klon = $div.clone().prop('id', 'copy' + num);
+                            $last.after($klon);
+
+                            $klon.show();
+                        }
+                    } else {
+                        show_warning("error", "error while uploading file");
+                    }
+                },
+                sending: function (file, xhr, formData) {
+                    formData.append("SUB_ID", $(this.element).find(".SUB_ID").val());
+                    //console.log(file.size);
+                }
+            });
+
+            $("#submit_it").on("click", function () {
+                $.ajax({
+                    url: '/files/files/newupload/',
+                    type: 'POST',
+                    data: {
+                        formJson: JSON.stringify(form_elem.serializeArray())
+                    },
+                    headers: {
+                        "Content-type": "application/x-www-form-urlencoded",
+                        "RequestVerificationToken": $('#RequestVerificationToken').val()
+                    },
+                    dataType: 'json',
+                    success: function (data) {
+                        if (data["result"] == "1") {
+                            window.location = "/files/files/index/";
+                        } else {
+                            show_warning(data["msg"], data["data"]);
+                        }
+                    },
+                    error: function (data) {
+                        show_warning(data["msg"], data["data"]);
+                    }
+                });
+            });
+
+        });
+
+    </script>
+}

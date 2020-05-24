@@ -1,0 +1,41 @@
+﻿@{
+    ViewData["Title"] = "Dashboard";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<button id="vectors" class="btn btn-success">Create vectors</button>
+
+
+
+
+@section ScriptsFooter{
+    <script type="text/javascript">
+
+        $(document).ready(function () {
+            $("#vectors").on("click", function () {
+                Swal.fire({
+					title:  'Are you sure?',
+					text: 'classification will create feature vectors',
+                    confirmButtonText: 'Ok'
+				}).then(function (result) {
+					if (result.value) {
+						$.post("/classification/classification/CreateVectors", function (data) {
+							if (data["result"] == "1") {
+                                Swal.fire({
+									title: data["msg"],
+                                    showConfirmButton: true
+								}).then((result) => {
+									window.location = data["data"];
+								});
+							} else {
+								alert(data["msg"]);
+							}
+						}, 'json').fail(function () {
+							alert(data["msg"]);
+						});
+					}
+				});
+            });
+        });
+    </script>
+}

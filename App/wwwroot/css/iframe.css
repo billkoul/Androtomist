@@ -1,0 +1,12 @@
+﻿body.yes #m_aside_left,
+body.yes .datatable_portlet .m-portlet__head,
+body.yes #m_header {
+    display: none !important
+}
+
+
+body.yes .m-content,
+body.yes .m-body {
+    padding: 0px !important
+}
+

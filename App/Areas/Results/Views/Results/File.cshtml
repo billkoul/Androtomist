@@ -1,0 +1,162 @@
+﻿@model Androtomist.Models.Database.Entities.ResultInfo;
+@{
+    ViewData["Title"] = "Analysis Results";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<style>
+    .dz-progress {
+        display: none;
+    }
+</style>
+<!--begin::Portlet-->
+<div style="overflow:scroll;">
+    <div>
+        <div>
+            @if (Model.PROCESSED)
+            {
+                <h5>
+                    Analysis Type: <span class="badge badge-pill badge-primary">@Model.TYPE</span>
+                </h5>
+                <h4>
+                    Result: @(Model.WARNING == 1 ? Html.Raw("[<span class='warning'>Suspicious</span>]") : (Model.WARNING >= 2 ? Html.Raw("[<span class='threat'>Malicious</span>]") : Html.Raw("[Clean]")))
+                </h4>
+                    @if (Model.WARNING > 0)
+                    {
+                    <div>
+                        Score: @((Model.WARNING == 1 ? Html.Raw("25%") : (Model.WARNING == 2 ? Html.Raw("55%") : (Model.WARNING == 3 ? Html.Raw("75%") : Html.Raw("90%")))))
+                        <div class="progress" style="width:100px; border: 1px solid #000;">
+                            <div class="progress-bar" role="progressbar" style="width: @((Model.WARNING == 1 ? Html.Raw("25%") : (Model.WARNING == 2 ? Html.Raw("55%") : (Model.WARNING == 3 ? Html.Raw("75%") : Html.Raw("90%")))))" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
+                        </div>
+                    </div>
+                    }
+                
+                <a href="#" id="export" style="float:right;"><button class="btn btn-success"><i class="fa fa-file-export"></i> Export results</button></a>
+
+            } else
+            {
+            <h4>
+                This file has not been analyzed yet
+            </h4>
+            }
+    </div>
+    </div>
+    <br />
+    <hr />
+    <div class="table">
+        <table>
+            <thead class="thead-dark">
+                <tr>
+                    <th>
+                        File Name
+                    </th>
+                    <th>
+                        Hash
+                    </th>
+                    <th>
+                        Package Name
+                    </th>
+                </tr>
+            </thead>
+            <tr>
+                <td>@Model.INFO.Rows[0]["FILE_NAME"]</td>
+                <td>@Model.INFO.Rows[0]["FILEHASH"]</td>
+                <td>@Model.INFO.Rows[0]["PACKAGE_NAME"]</td>
+            </tr>
+        </table>
+        <br />
+        <strong>Static Analysis Results</strong>
+        <table>
+            <thead class="thead-dark">
+                <tr><th>Permission Name</th></tr>
+            </thead>
+            @{
+                @foreach (System.Data.DataRow row in Model.PERMISSIONS.Rows)
+                {
+                    <tr>
+                        <td>@Html.Raw(row["PERMISSION"])</td>
+                    </tr>
+                }
+            }
+        </table>
+        <br />
+        <table>
+            <thead class="thead-dark">
+                <tr><th>Intent Name</th></tr>
+            </thead>
+            @{
+                @foreach (System.Data.DataRow row in Model.INTENT.Rows)
+                {
+                    <tr>
+                        <td>@Html.Raw(row["INTENT"])</td>
+                    </tr>
+                }
+            }
+        </table>
+        <!--<br />
+        <table>
+            <thead class="thead-dark">
+                <tr><th>API Calls</th></tr>
+            </thead>
+            @{
+                @foreach (System.Data.DataRow row in Model.API.Rows)
+                {
+                    <tr>
+                        <td>@Html.Raw(row["API_CALL"])</td>
+                    </tr>
+                }
+            }
+        </table>-->
+        <br />
+        <strong>Dynamic Analysis Results</strong>
+        <table>
+            @{
+                <thead class="thead-dark">
+                    <tr>
+                        <th>
+                            Type
+                        </th>
+                        <th>
+                            Details
+                        </th>
+                    </tr>
+                </thead>
+                @foreach (System.Data.DataRow row in Model.DYNAMIC.Rows)
+                {
+                    <tr>
+                        <td>@row["TYPE"]</td>
+                        <td>@row["DETAILS"]</td>
+                    </tr>
+                }
+            }
+        </table>
+        <br />
+        <br />
+        <br />
+        <div class="alert alert-warning" role="alert">
+
+            <p>This report is based on the initial training of Androtomist. If you believe that further calibration is needed please <a href="mailto:bkouliaridis@aegean.gr">contact us!</a> </p>
+            <p>Thank you for using our tool!</p>
+        </div>
+    </div>
+</div>
+<!--end::Portlet-->
+
+@section ScriptsFooter{
+    <script type="text/javascript">
+
+        $(document).ready(function () {
+            $("#export").on("click", function (e) {
+                e.preventDefault();
+                $.post("/results/results/export", { fileId: "@Model.FILE_ID" }, function (data) {
+                    if (data["result"] == "1") {
+                        window.location = data["msg"];
+                    } else {
+                        show_warning(data["msg"], data["data"]);
+                    }
+                }, 'json').fail(function () {
+                    show_error("Cannot save upload log.", "Something went wrong");
+                });
+            });
+        });
+    </script>
+}

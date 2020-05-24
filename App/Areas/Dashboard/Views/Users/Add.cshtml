@@ -1,0 +1,115 @@
+﻿@model Androtomist.Models.Database.Entities.User;
+
+@{
+    @if (ViewData["is_me"].ToString() == "yes") {
+            ViewData["Title"] = "My Account";
+        }
+        else {
+            ViewData["Title"] = (Model.Exists() ? "Edit user [" + Model.NAME + "]" : "Add new user");
+        }
+        Layout = "~/Views/Shared/_Layout.cshtml";
+    }
+
+<div>
+    <h3>
+        User properties
+    </h3>
+    <!--begin::Form-->
+    <form id="form_new_user" novalidate="novalidate">
+        <input type="hidden" id="user_id" name="user_id" value="@(Model.Exists() ? Model.USER_ID : -1)" />
+
+            <div class="col-md-6">
+                <div class="form-group m-form__group">
+                    <label for="USR_NAME">Name</label>
+                    <input type="text" class="form-control m-input" id="USR_NAME" name="USR_NAME" placeholder="User name" required value="@(Model.Exists() ? Model.NAME : "")" />
+                    <div class="invalid-feedback">This field is required.</div>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="form-group m-form__group">
+                    <label for="USR_SURNAME">Surname</label>
+                    <input type="text" class="form-control m-input" id="USR_SURNAME" name="USR_SURNAME" placeholder="User Surname" required value="@(Model.Exists() ? Model.SURNAME : "")" />
+                    <div class="invalid-feedback">This field is required.</div>
+                </div>
+            </div>
+
+            <div class="col-md-6">
+                <label for="USR_USER_NAME">Username</label>
+                <input type="text" class="form-control m-input" id="USR_USER_NAME" name="USR_USER_NAME" placeholder="username" required value="@(Model.Exists() ? Model.USER_NAME : "")" />
+                <div class="invalid-feedback">This field is required.</div>
+            </div>
+
+            <div class="form-group m-form__group">
+                <label for="USR_PASSWORD">Password</label>
+                <input type="password" class="form-control m-input" id="USR_PASSWORD" name="USR_PASSWORD" placeholder="password" required value="@(Model.Exists() ? Model.PASSWORD : "")" />
+                <div class="invalid-feedback">This field is required.</div>
+            </div>
+
+            <div class="form-group m-form__group">
+                <label for="USR_EMAIL">Email</label>
+                <input type="text" class="form-control m-input" id="USR_EMAIL" name="USR_EMAIL" placeholder="email" required value="@(Model.Exists() ? Model.EMAIL : "")" />
+                <div class="invalid-feedback">This field is required.</div>
+            </div>
+
+            <div class="m-form__group form-group"  @(ViewData["is_me"].ToString() == "yes" ? "style=display:none;" : "")>
+                <label>User level</label>
+                <div class="m-radio-list">
+                    @{
+                        foreach (USER_LEVEL USER_LEVEL in (USER_LEVEL[])Enum.GetValues(typeof(USER_LEVEL)))
+                        {
+                            if (((int)Enum.Parse(typeof(USER_LEVEL), this.ViewData["user_level"].ToString())) <= 1)
+                            {
+                            <label class="m-radio m-radio--state-success">
+                                <input type="radio" name="USR_USER_LEVEL" value="@USER_LEVEL" @(Model.Exists() && Model.USER_LEVEL == USER_LEVEL ? "checked" : "") required>
+                                @USER_LEVEL
+                                <span></span>
+                            </label>
+                                }
+                            }
+                        }
+                </div>
+                <div class="invalid-feedback">This field is required.</div>
+            </div>
+
+        <div>
+            <div class="row">
+                <div class="col-lg-9">
+                    @{
+                        if (Model.Exists())
+                        {
+                            <button type="submit" id="submit_it" class="btn btn-success" name="submit_it">Update User</button>
+                        }
+                        else
+                        {
+                            <button type="submit" id="submit_it" class="btn btn-success" name="submit_it">Create User</button>
+                        }
+                    }
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
+
+@section ScriptsFooter{
+    <script type="text/javascript">
+        var form_elem = $('#form_new_user');
+
+        $(document).ready(function () {
+
+            $(document).on("click", "#submit_it", function () {
+
+                $.post("/dashboard/users/newuser/", { formJson: JSON.stringify(form_elem.serializeArray()) }, function (data) {
+                        if (data["result"] == "1") {
+                            window.location = "/dashboard/users/index/";
+                        } else {
+                            show_warning(data["msg"], data["data"]);
+                        }
+                    }, 'json').fail(function () {
+                        show_error("Cannot save user log.", "Something went wrong");
+                    });
+            });
+
+        });
+
+    </script>
+}
