@@ -9,30 +9,22 @@ namespace Androtomist.Models.Processing
     public class Terminal
     {
         //fill in the VB name of the Android OS to use (ie Android 7.1) and the snapshot of the clean device to restore (ie Snapshot 3)
-        private string startVM = "cd 'C:\\Program Files\\Oracle\\VirtualBox' ; .\\VBoxManage.exe startvm 'Android 7.1'";//--type headless";
-        private string poweroffVM = "cd 'C:\\Program Files\\Oracle\\VirtualBox' ; .\\VBoxManage.exe controlvm 'Android 7.1' poweroff";
-        private string restoreVM = "cd 'C:\\Program Files\\Oracle\\VirtualBox' ; .\\VBoxManage.exe snapshot 'Android 7.1' restore 'Snapshot 3'";
-        public string initialize;
+        private string startVM = "cd C:\\Program Files\\Oracle\\VirtualBox && VBoxManage.exe startvm \"Android 7.1\"";// use --type headless after debug to not show the vm window (faster) 
+        private string poweroffVM = "cd C:\\Program Files\\Oracle\\VirtualBox && VBoxManage.exe controlvm \"Android 7.1\" poweroff";
+        private string restoreVM = "cd C:\\Program Files\\Oracle\\VirtualBox && VBoxManage.exe snapshot \"Android 7.1\" restore \"Snapshot 3\"";
+        public bool initialize;
 
         public Terminal(bool novm = false)
         {
             initialize = init(novm);
         }
 
-        public string init(bool novm = false)
+        public bool init(bool novm = false)
         {
-            using (PowerShell ps = PowerShell.Create())
-            {
-                if (novm) return "";
+            if (novm) return true;
+            cmd(startVM);
 
-                var results = ps.AddScript(startVM).Invoke();
-                ps.Commands.Clear();
-
-                if (results.Count > 0)
-                    return results[0].ToString();
-                else
-                    return "";
-            }
+            return true;
         }
 
         public List<string> exec(string command = "")
@@ -73,21 +65,12 @@ namespace Androtomist.Models.Processing
             return result;
         }
 
-        public string dispose()
+        public bool dispose()
         {
-            using (PowerShell ps = PowerShell.Create())
-            {
-                var results = ps.AddScript(poweroffVM).Invoke();
-                ps.Commands.Clear();
+            cmd(poweroffVM);
+            cmd(restoreVM);
 
-                results = ps.AddScript(restoreVM).Invoke();
-                ps.Commands.Clear();
-
-                if (results.Count > 0)
-                    return results[0].ToString();
-                else
-                    return "";
-            }
+            return true;
         }
 
     }

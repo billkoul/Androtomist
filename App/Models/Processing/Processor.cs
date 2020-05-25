@@ -33,8 +33,6 @@ namespace Androtomist.Models.Processing
         /// </summary>
         public long Analyze()
         {
-            t1 = new Terminal(true);
-
             //comment out the following line to allow dynamic analysis
             if ((PROCESS_TYPE)p.P_TYPE_ID == PROCESS_TYPE.DYNAMIC || (PROCESS_TYPE)p.P_TYPE_ID == PROCESS_TYPE.HYBRID)
                 throw new Exception("This action is not permitted with a demo account");
@@ -50,15 +48,15 @@ namespace Androtomist.Models.Processing
                 }
                 if ((PROCESS_TYPE)p.P_TYPE_ID == PROCESS_TYPE.DYNAMIC || (PROCESS_TYPE)p.P_TYPE_ID == PROCESS_TYPE.HYBRID)
                 {
+                    t1 = new Terminal(true);
                     ConnectDevice();
                     InstallSample();
                     ExtractDynamicData();
+                    t1.dispose();
                 }
             }
             else
                 throw new Exception("File does not exists");
-
-            //t1.dispose();
 
             isSuccesful = true;
 
@@ -71,10 +69,10 @@ namespace Androtomist.Models.Processing
         {
             if (file.ExistsProp)
             {
-                _ = t1.cmd("cd " + Info.TOOLS_PATH + " && .\\adb connect " + Info.REMOTE_ADDR);
-                _ = t1.cmd("cd " + Info.TOOLS_PATH + " && .\\adb push frida-server-12.6.23-android-x86_64ata/local/tmp");
-                _ = t1.cmd("cd " + Info.TOOLS_PATH + " && .\\adb shell \"su -c 'chmod 755ata/local/tmp/frida-server-12.6.23-android-x86_64'\";");
-                _ = t1.cmd("cd " + Info.TOOLS_PATH + " && .\\adb shell \"su -c '/data/local/tmp/frida-server-12.6.23-android-x86_64 >/dev/null 2>&1 &'\";");
+                _ = t1.cmd("cd " + Info.TOOLS_PATH + " && adb.exe connect " + Info.REMOTE_ADDR);
+                _ = t1.cmd("cd " + Info.TOOLS_PATH + " && adb.exe push frida-server-12.6.23-android-x86_64ata/local/tmp");
+                _ = t1.cmd("cd " + Info.TOOLS_PATH + " && adb.exe shell \"su -c 'chmod 755ata/local/tmp/frida-server-12.6.23-android-x86_64'\";");
+                _ = t1.cmd("cd " + Info.TOOLS_PATH + " && adb.exe shell \"su -c '/data/local/tmp/frida-server-12.6.23-android-x86_64 >/dev/null 2>&1 &'\";");
             }
             else
                 throw new Exception("File does not exists");
@@ -87,7 +85,7 @@ namespace Androtomist.Models.Processing
         {
             if (file.ExistsProp)
             {
-                t1.cmd("cd " + Info.TOOLS_PATH + " && .\\adb disconnect " + Info.REMOTE_ADDR);
+                t1.cmd("cd " + Info.TOOLS_PATH + " && adb.exe disconnect " + Info.REMOTE_ADDR);
             }
             else
                 throw new Exception("File does not exists");
@@ -99,8 +97,8 @@ namespace Androtomist.Models.Processing
         {
             if (file.ExistsProp)
             {
-                _ = t1.cmd("cd " + Info.TOOLS_PATH + " && .\\adb push '" + file.FILE_PATH + "'ata/local/tmp;");
-                _ = t1.cmd("cd " + Info.TOOLS_PATH + " && .\\adb shell 'cdata/local/tmp; pm install " + file.ORIGINAL_FILE_NAME.Replace("(", "\\(").Replace(")", "\\)") + "';");
+                _ = t1.cmd("cd " + Info.TOOLS_PATH + " && adb.exe push '" + file.FILE_PATH + "'ata/local/tmp;");
+                _ = t1.cmd("cd " + Info.TOOLS_PATH + " && adb.exe shell 'cdata/local/tmp; pm install " + file.ORIGINAL_FILE_NAME.Replace("(", "\\(").Replace(")", "\\)") + "';");
             }
             else
                 throw new Exception("File does not exists");
@@ -281,7 +279,7 @@ namespace Androtomist.Models.Processing
                 },
                 () =>
                 {
-                    t1.cmd("cd " + Info.TOOLS_PATH + " && .\\adb shell \"monkey -p " + file.PACKAGE_NAME + " --pct-trackball 0 --pct-syskeys 0 --pct-nav 0 --pct-majornav 0 --ignore-crashes -v " + Info.EVENTS + "\"", 5000);
+                    t1.cmd("cd " + Info.TOOLS_PATH + " && adb.exe shell \"monkey -p " + file.PACKAGE_NAME + " --pct-trackball 0 --pct-syskeys 0 --pct-nav 0 --pct-majornav 0 --ignore-crashes -v " + Info.EVENTS + "\"", 5000);
                 },
                 () =>
                 {
