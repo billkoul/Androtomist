@@ -71,10 +71,10 @@ namespace Androtomist.Models.Processing
         {
             if (file.ExistsProp)
             {
-                _ = t1.cmd("cd /d " + Info.TOOLS_PATH + " && .\\adb connect " + Info.REMOTE_ADDR);
-                _ = t1.cmd("cd /d " + Info.TOOLS_PATH + " && .\\adb push frida-server-12.6.23-android-x86_64 /data/local/tmp");
-                _ = t1.cmd("cd /d " + Info.TOOLS_PATH + " && .\\adb shell \"su -c 'chmod 755 /data/local/tmp/frida-server-12.6.23-android-x86_64'\";");
-                _ = t1.cmd("cd /d " + Info.TOOLS_PATH + " && .\\adb shell \"su -c '/data/local/tmp/frida-server-12.6.23-android-x86_64 >/dev/null 2>&1 &'\";");
+                _ = t1.cmd("cd " + Info.TOOLS_PATH + " && .\\adb connect " + Info.REMOTE_ADDR);
+                _ = t1.cmd("cd " + Info.TOOLS_PATH + " && .\\adb push frida-server-12.6.23-android-x86_64ata/local/tmp");
+                _ = t1.cmd("cd " + Info.TOOLS_PATH + " && .\\adb shell \"su -c 'chmod 755ata/local/tmp/frida-server-12.6.23-android-x86_64'\";");
+                _ = t1.cmd("cd " + Info.TOOLS_PATH + " && .\\adb shell \"su -c '/data/local/tmp/frida-server-12.6.23-android-x86_64 >/dev/null 2>&1 &'\";");
             }
             else
                 throw new Exception("File does not exists");
@@ -87,7 +87,7 @@ namespace Androtomist.Models.Processing
         {
             if (file.ExistsProp)
             {
-                t1.cmd("cd /d " + Info.TOOLS_PATH + " && .\\adb disconnect " + Info.REMOTE_ADDR);
+                t1.cmd("cd " + Info.TOOLS_PATH + " && .\\adb disconnect " + Info.REMOTE_ADDR);
             }
             else
                 throw new Exception("File does not exists");
@@ -99,8 +99,8 @@ namespace Androtomist.Models.Processing
         {
             if (file.ExistsProp)
             {
-                _ = t1.cmd("cd /d " + Info.TOOLS_PATH + " && .\\adb push '" + file.FILE_PATH + "' /data/local/tmp;");
-                _ = t1.cmd("cd /d " + Info.TOOLS_PATH + " && .\\adb shell 'cd /data/local/tmp; pm install " + file.ORIGINAL_FILE_NAME.Replace("(", "\\(").Replace(")", "\\)") + "';");
+                _ = t1.cmd("cd " + Info.TOOLS_PATH + " && .\\adb push '" + file.FILE_PATH + "'ata/local/tmp;");
+                _ = t1.cmd("cd " + Info.TOOLS_PATH + " && .\\adb shell 'cdata/local/tmp; pm install " + file.ORIGINAL_FILE_NAME.Replace("(", "\\(").Replace(")", "\\)") + "';");
             }
             else
                 throw new Exception("File does not exists");
@@ -113,7 +113,7 @@ namespace Androtomist.Models.Processing
 
         private void ExtractPackageName()
         {
-            string package = string.Join("", t1.cmd("cd /d " + Info.TOOLS_PATH + " && aapt.exe  dump badging " + file.FILE_PATH + ""));
+            string package = string.Join("", t1.cmd("cd " + Info.TOOLS_PATH + " && aapt.exe  dump badging " + file.FILE_PATH + ""));
 
             int pack_start = package.IndexOf("package: name='");
             string package_name = package.Substring(pack_start + 15);
@@ -129,13 +129,13 @@ namespace Androtomist.Models.Processing
                         "'" + package_name + "'"
                 };
 
-                databaseConnector.UpdateSQL("A_FILE_TRAIN", colNames, col_vals, "FILE_ID=" + file.FILE_ID);
+                databaseConnector.UpdateSQL("A_FILE", colNames, col_vals, "FILE_ID=" + file.FILE_ID);
             }
         }
 
         private void ExtractPermissions()
         {
-            string permissionText = string.Join("", t1.cmd("cd /d " + Info.TOOLS_PATH + " && aapt.exe dump permissions " + file.FILE_PATH + ""));
+            string permissionText = string.Join("", t1.cmd("cd " + Info.TOOLS_PATH + " && aapt.exe dump permissions " + file.FILE_PATH + ""));
 
             PermissionParser pp = new PermissionParser();
             string json = pp.ParsePermissionJson(permissionText, file.PACKAGE_NAME);
@@ -213,7 +213,7 @@ namespace Androtomist.Models.Processing
 
         private void ExtractIntent()
         {
-            string intentFilter = string.Join("", t1.cmd("cd /d " + Info.TOOLS_PATH + " && aapt.exe dump xmltree " + file.FILE_PATH + " AndroidManifest.xml"));
+            string intentFilter = string.Join("", t1.cmd("cd " + Info.TOOLS_PATH + " && aapt.exe dump xmltree " + file.FILE_PATH + " AndroidManifest.xml"));
             string json = "";
 
             if (intentFilter.IndexOf("intent-filter") > -1)
