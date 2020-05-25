@@ -31,8 +31,8 @@ namespace Androtomist.Models.Processing
             {
                 _ = t1.cmd("cd /d " + Info.TOOLS_PATH + " && adb.exe connect " + Info.REMOTE_ADDR);
                 _ = t1.cmd("cd /d " + Info.TOOLS_PATH + " && adb.exe push ../frida-server-12.6.23-android-x86_64 /data/local/tmp");
-                _ = t1.cmd("cd /d " + Info.TOOLS_PATH + " && adb.exe shell \"su -c 'chmod 755 /data/local/tmp/frida-server-12.6.23-android-x86_64'\";");
-                _ = t1.cmd("cd /d " + Info.TOOLS_PATH + " && adb.exe shell \"su -c '/data/local/tmp/frida-server-12.6.23-android-x86_64 >/dev/null 2>&1 &'\";");
+                _ = t1.cmd("cd /d " + Info.TOOLS_PATH + " && adb.exe shell \"su -c 'chmod 755 /data/local/tmp/frida-server-12.6.23-android-x86_64'\"");
+                _ = t1.cmd("cd /d " + Info.TOOLS_PATH + " && adb.exe shell \"su -c '/data/local/tmp/frida-server-12.6.23-android-x86_64 >/dev/null 2>&1 &'\"");
             }
             else
                 throw new Exception("File does not exists");
