@@ -13,6 +13,7 @@ PostgreSQL Database :https://www.postgresql.org/ <br />
 VirtualBox: https://www.virtualbox.org/ <br />
 SDK Platform Tools: https://developer.android.com/studio/releases/platform-tools <br />
 Apktool: https://ibotpeaches.github.io/Apktool/ <br />
+aapt: https://androidaapt.com/
 Android OS for VB, preferably android-x86_64-7.1: https://www.android-x86.org/ <br />
 
 
@@ -24,7 +25,7 @@ Android OS for VB, preferably android-x86_64-7.1: https://www.android-x86.org/ <
 
 Steps:
 1. Run the create scripts to build the database<br />
-2. Download the Android platform-tools, Apktool (place in the same folder as the ADB exe), and install Frida<br />
+2. Download the Android platform-tools, aapt, Apktool (place in the same folder as the ADB exe), and install Frida<br />
 3. Download an Androidx86 image<br />
 4. Install VirtualBox<br />
 5. load your Androidx86 image, after loading the OS create a snapshot which will be used as a reset point and add the name of the VB image and snapshot to Models/Processing/Terminal.cs<br />
