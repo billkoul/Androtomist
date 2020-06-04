@@ -40,7 +40,7 @@ namespace Androtomist.Models.Processing
             return resultList;
         }
 
-        public string cmd(string command = "", int timeout = 3000)
+        public string cmd(string command = "", int timeout = 10000)
         {
             string result = "";
             System.Diagnostics.ProcessStartInfo procStartInfo = new System.Diagnostics.ProcessStartInfo("cmd", "/c " + command);
