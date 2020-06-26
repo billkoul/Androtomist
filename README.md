@@ -30,3 +30,9 @@ Steps:
 4. Install VirtualBox<br />
 5. load your Androidx86 image, after loading the OS create a snapshot which will be used as a reset point and add the name of the VB image and snapshot to Models/Processing/Terminal.cs<br />
 6. Run the App with Visual Studio after filling in all columns of the A_INFO table<br />
+
+
+## Environment
+![alt text](https://github.com/billkoul/Androtomist/edit/master/1.PNG?raw=true)
+
+![alt text](https://github.com/billkoul/Androtomist/edit/master/2.PNG?raw=true)
