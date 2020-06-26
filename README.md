@@ -33,6 +33,6 @@ Steps:
 
 
 ## Environment
-![home](https://github.com/billkoul/Androtomist/edit/master/1.PNG?raw=true)
+![home](https://raw.githubusercontent.com/billkoul/Androtomist/master/1.PNG)
 
-![report](https://github.com/billkoul/Androtomist/edit/master/2.PNG?raw=true)
+![report](https://raw.githubusercontent.com/billkoul/Androtomist/master/2.PNG)
