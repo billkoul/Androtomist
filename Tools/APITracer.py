@@ -21,8 +21,10 @@ for file in files:
 					#apiCalls.append("L"+apiCall[:-2]+"\n")
 					apiCalls.append("L"+apiCall[:-2])
 
+print('{"apicalls": [{"version":"1"}');
 for apiCall in apiCalls:
-	print(apiCall)
+	print(',{"apicall":"'+apiCall+'"}')
+print("]}");
 
 #f = open("log\\" + package_name + "_log.txt", "a")
 #for apiCall in apiCalls:
