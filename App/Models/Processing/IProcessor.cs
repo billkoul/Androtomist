@@ -222,7 +222,7 @@ namespace Androtomist.Models.Processing
 
         protected void GetAPICalls()
         {
-            string json = t1.cmd("py " + Info.TOOLS_PATH + "\\APITracer.py" + Info.PROJECT_PATH + "\\files\\decoded\\" + file.ORIGINAL_FILE_NAME);
+            string json = t1.cmd("py " + Info.TOOLS_PATH + "\\APITracer.py " + Info.PROJECT_PATH + "\\files\\decoded\\" + file.ORIGINAL_FILE_NAME);
             
             if (IsValidJson(json))
             {
