@@ -222,6 +222,23 @@ namespace Androtomist.Models.Processing
 
         protected void GetAPICalls()
         {
+            string json = t1.cmd("py " + Info.TOOLS_PATH + "\\APITracer.py" + Info.PROJECT_PATH + "\\files\\decoded\\" + file.ORIGINAL_FILE_NAME);
+            
+            if (IsValidJson(json))
+            {
+                List<string> col_names = new List<string>{
+                        "FILE_ID",
+                        "API_CALLS_JSON",
+                    };
+
+                List<string> col_vals = new List<string> {
+                        "'" + file.FILE_ID + "'",
+                        "'" + json + "'",
+                    };
+
+                databaseConnector.InsertSQL("R_STATIC", col_names, col_vals);
+                
+            }
         }
 
         #endregion
