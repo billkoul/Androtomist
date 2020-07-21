@@ -8,7 +8,7 @@ The application itself is dual mode, i.e., fully automated for the novice user a
 Androtomist's source code is offered under the European Union Public Licence (https://ec.europa.eu/info/european-union-public-licence_en)
 
 Please cite our paper:<br />
-Kouliaridis, V.; Kambourakis, G.; Geneiatakis, D.; Potha, N. Two Anatomists Are Better than One—Dual-Level Android Malware Detection. Symmetry 2020, 12, 1128.
+<a href="https://www.mdpi.com/2073-8994/12/7/1128">Kouliaridis, V.; Kambourakis, G.; Geneiatakis, D.; Potha, N. Two Anatomists Are Better than One—Dual-Level Android Malware Detection. Symmetry 2020, 12, 1128.</a>
 
 ## Dependencies 
 .NET CORE 2.1 : https://dotnet.microsoft.com/download/dotnet-core/2.1 <br />
