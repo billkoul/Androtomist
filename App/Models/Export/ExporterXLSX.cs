@@ -8,7 +8,7 @@ using System.Linq;
 using Androtomist.Models.Global;
 using System.Text;
 
-public class ExporterXlsx : ExporterAbastract
+public class ExporterXlsx : ExporterAbstract
 {
 	private const string DecFormat = "#,##0";
 	private const string IntFormat = "#,##0";
