@@ -1,14 +1,14 @@
 ﻿using System;
 using System.Data;
 
-public abstract class ExporterAbastract
+public abstract class ExporterAbstract
 {
 	protected string ExportPath;
 
 	public DataTable DataTableData { get; set; }
 	public DataTable DataTableInfo { get; set; }
 
-	protected ExporterAbastract(string exportPath)
+	protected ExporterAbstract(string exportPath)
 	{
 		this.ExportPath = exportPath;
 	}
