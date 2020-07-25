@@ -11,8 +11,7 @@ namespace Androtomist.Models.Processing
     public class IntentParser
     {
         /// <summary>
-        /// Converts the text output from terminal to json with permissions, may need adjustments. I din't have time to write an xml parsing function.
-        /// TODO: Change this silly function with a function that parses XML and reads the names of the intents
+        /// Converts the text output from terminal to json with intents, may need adjustments. XMLParser class is more stable and robust.
         /// </summary>
         public string ParseIntentJson(string intentOutput)
         {
