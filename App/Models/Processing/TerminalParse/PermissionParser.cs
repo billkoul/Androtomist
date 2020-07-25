@@ -8,8 +8,7 @@ namespace Androtomist.Models.Processing
     public class PermissionParser
     {
         /// <summary>
-        /// Converts the text output from terminal to json with permissions, may need adjustments. I Didn't have time to write an xml parsing function.
-        /// TODO: Change this silly function with a function that parses XML and reads the names of the permissions.
+        /// Converts the text output from terminal to json with permissions, may need adjustments. XMLParser class is more stable and robust.
         /// </summary>
         public string ParsePermissionJson(string permissionText, string packageName)
         {
