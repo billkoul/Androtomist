@@ -87,13 +87,39 @@ namespace Androtomist.Models.Processing
                 databaseConnector.UpdateSQL("A_FILE", colNames, col_vals, "FILE_ID=" + file.FILE_ID);
             }
         }
+        
+        protected void Decompile()
+        {
+            t1.cmd("java -jar " + Info.TOOLS_PATH + "\\apktool.jar d -o " + Info.PROJECT_PATH + "\\files\\decoded\\" + file.ORIGINAL_FILE_NAME + " -f " + file.FILE_PATH);
+        }
 
         protected void ExtractPermissions()
         {
             /*
             // XML Parsing
-            var xmlParser = new XmlParser(_manifestFilePath);
+            var xmlParser = new XmlParser(Info.PROJECT_PATH + "\\files\\decoded\\" + file.ORIGINAL_FILE_NAME + "\\Manifest.xml");
             List<string> permissions = xmlParser.GetPermissions();
+            
+            foreach (string permission in permissions)
+            {
+                DataTable dt = databaseConnector.SelectSQL("SELECT ID FROM A_PERMISSION WHERE VALUE LIKE '" + permission + "'", "A_PERMISSION");
+                int permission_id = (dt2.Rows.Count > 0 ? Convert.ToInt32(dt2.Rows[0]["ID"]) : -1);
+
+                List<string> col_names = new List<string>{
+                        "FILE_ID",
+                        "PERMISSION",
+                        "PERMISSION_ID"
+                };
+
+                List<string> col_vals = new List<string> {
+                        "'" + file.FILE_ID + "'",
+                        "'" + permission + "'",
+                        "'" + permission_id + "'"
+                };
+
+                databaseConnector.DeleteSQL("DELETE FROM R_PERMISSIONS WHERE FILE_ID = " + file.FILE_ID);
+                databaseConnector.InsertSQL("R_PERMISSIONS", col_names, col_vals);
+            }
             */
             string permissionText = string.Join("", t1.cmd("cd " + Info.TOOLS_PATH + " && aapt.exe dump permissions " + file.FILE_PATH + ""));
 
@@ -124,6 +150,7 @@ namespace Androtomist.Models.Processing
             {
                 APK app = JsonConvert.DeserializeObject<APK>(permissions);
 
+                databaseConnector.DeleteSQL("DELETE FROM R_PERMISSIONS WHERE FILE_ID = " + file.FILE_ID);
                 foreach (string permission in app.permissions)
                 {
                     DataTable dt2 = databaseConnector.SelectSQL("SELECT ID FROM A_PERMISSION WHERE VALUE LIKE '" + permission + "'", "A_PERMISSION");
@@ -140,9 +167,6 @@ namespace Androtomist.Models.Processing
                             "'" + permission + "'",
                             "'" + permission_id + "'"
                         };
-
-                    databaseConnector.DeleteSQL("DELETE FROM R_PERMISSIONS WHERE FILE_ID = " + file.FILE_ID);
-
                     databaseConnector.InsertSQL("R_PERMISSIONS", col_names, col_vals);
                 }
             }
@@ -175,8 +199,24 @@ namespace Androtomist.Models.Processing
         {
             /*
             // XML Parsing
-            var xmlParser = new XmlParser(_manifestFilePath);
+            var xmlParser = new XmlParser(Info.PROJECT_PATH + "\\files\\decoded\\" + file.ORIGINAL_FILE_NAME + "\\Manifest.xml");
             List<string> intents = xmlParser.GetIntents();
+            
+            databaseConnector.DeleteSQL("DELETE FROM R_INTENT WHERE FILE_ID = " + file.FILE_ID);
+            foreach (string intent in intents)
+            {
+                List<string> col_names = new List<string>{
+                        "FILE_ID",
+                        "INTENT",
+                };
+
+                List<string> col_vals = new List<string> {
+                        "'" + file.FILE_ID + "'",
+                        "'" + intent + "'",
+                };
+
+                databaseConnector.InsertSQL("R_INTENT", col_names, col_vals);
+            }
             */
             string intentFilter = string.Join("", t1.cmd("cd " + Info.TOOLS_PATH + " && aapt.exe dump xmltree " + file.FILE_PATH + " AndroidManifest.xml"));
             string json = "";
@@ -225,11 +265,6 @@ namespace Androtomist.Models.Processing
             }
         }
 
-        protected void Decompile()
-        {
-            t1.cmd("java -jar " + Info.TOOLS_PATH + "\\apktool.jar d -o " + Info.PROJECT_PATH + "\\files\\decoded\\" + file.ORIGINAL_FILE_NAME + " -f " + file.FILE_PATH);
-        }
-
         protected void GetAPICalls()
         {
             string json = t1.cmd("py " + Info.TOOLS_PATH + "\\APITracer.py " + Info.PROJECT_PATH + "\\files\\decoded\\" + file.ORIGINAL_FILE_NAME);
@@ -239,12 +274,12 @@ namespace Androtomist.Models.Processing
                 List<string> col_names = new List<string>{
                         "FILE_ID",
                         "API_CALLS_JSON",
-                    };
+                };
 
                 List<string> col_vals = new List<string> {
                         "'" + file.FILE_ID + "'",
                         "'" + json + "'",
-                    };
+                };
 
                 databaseConnector.InsertSQL("R_STATIC", col_names, col_vals);
                 
