@@ -90,6 +90,11 @@ namespace Androtomist.Models.Processing
 
         protected void ExtractPermissions()
         {
+            /*
+            // XML Parsing
+            var xmlParser = new XmlParser(_manifestFilePath);
+            List<string> permissions = xmlParser.GetPermissions();
+            */
             string permissionText = string.Join("", t1.cmd("cd " + Info.TOOLS_PATH + " && aapt.exe dump permissions " + file.FILE_PATH + ""));
 
             PermissionParser pp = new PermissionParser();
@@ -168,6 +173,11 @@ namespace Androtomist.Models.Processing
 
         protected void ExtractIntent()
         {
+            /*
+            // XML Parsing
+            var xmlParser = new XmlParser(_manifestFilePath);
+            List<string> intents = xmlParser.GetIntents();
+            */
             string intentFilter = string.Join("", t1.cmd("cd " + Info.TOOLS_PATH + " && aapt.exe dump xmltree " + file.FILE_PATH + " AndroidManifest.xml"));
             string json = "";
 
