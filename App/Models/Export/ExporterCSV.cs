@@ -3,7 +3,7 @@ using System.Data;
 
 using System.Linq;
 
-public class ExporterCSV : ExporterAbastract
+public class ExporterCSV : ExporterAbstract
 {
 	private System.IO.StreamWriter os;
 	private readonly string _delimiter;
