@@ -2,7 +2,7 @@
 
 Androtomist is a novel hybrid analysis toolcapable of performing both static and dynamic analysis of applications on the Android platform. Unlike similar tools, Androtomist makes use of a plethora of features stemming from static analysis along with dynamic instrumentation to analyse applications and decide if they are benign or not.
 
-The application itself is dual mode, i.e., fully automated for the novice user and configurablefor the expert one.
+The application itself is dual mode, i.e., fully automated for the novice user and configurable for the expert one.
 
 ## Licence 
 Androtomist's source code is offered under the European Union Public Licence (https://ec.europa.eu/info/european-union-public-licence_en)
