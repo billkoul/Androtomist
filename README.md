@@ -1,6 +1,6 @@
 # Androtomist
 
-Androtomist (Androtomist.com) is a novel hybrid analysis toolcapable of performing both static and dynamic analysis of applications on the Android platform. Unlike similar tools, Androtomist makes use of a plethora of features stemming from static analysis along with dynamic instrumentation to analyse applications and decide if they are benign or not.
+Androtomist (https://Androtomist.com) is a novel hybrid analysis toolcapable of performing both static and dynamic analysis of applications on the Android platform. Unlike similar tools, Androtomist makes use of a plethora of features stemming from static analysis along with dynamic instrumentation to analyse applications and decide if they are benign or not.
 
 The application itself is dual mode, i.e., fully automated for the novice user and configurable for the expert one.
 
