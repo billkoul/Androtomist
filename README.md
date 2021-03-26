@@ -4,6 +4,8 @@ Androtomist (https://Androtomist.com) is a novel hybrid analysis toolcapable of 
 
 The application itself is dual mode, i.e., fully automated for the novice user and configurable for the expert one.
 
+A light CLI version of the tool can be found here https://github.com/billkoul/AndrotomistLite
+
 ## Licence 
 Androtomist's source code is offered under the European Union Public Licence (https://ec.europa.eu/info/european-union-public-licence_en)
 
