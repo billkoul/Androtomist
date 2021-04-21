@@ -121,6 +121,7 @@ namespace Androtomist.Models.Processing
                 databaseConnector.InsertSQL("R_PERMISSIONS", col_names, col_vals);
             }
             */
+            //In Demo version decompile is not used so we get permissions with aapt (terminal parsing)
             string permissionText = string.Join("", t1.cmd("cd " + Info.TOOLS_PATH + " && aapt.exe dump permissions " + file.FILE_PATH + ""));
 
             PermissionParser pp = new PermissionParser();
@@ -218,6 +219,7 @@ namespace Androtomist.Models.Processing
                 databaseConnector.InsertSQL("R_INTENT", col_names, col_vals);
             }
             */
+            //In Demo version decompile is not used so we get intents with aapt (terminal parsing)
             string intentFilter = string.Join("", t1.cmd("cd " + Info.TOOLS_PATH + " && aapt.exe dump xmltree " + file.FILE_PATH + " AndroidManifest.xml"));
             string json = "";
 
