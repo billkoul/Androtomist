@@ -41,3 +41,5 @@ Steps:
 ![home](https://raw.githubusercontent.com/billkoul/Androtomist/master/1.PNG)
 
 ![report](https://raw.githubusercontent.com/billkoul/Androtomist/master/2.PNG)
+
+The current version is configured as a demo version - for quick setup use the Lite version -> https://github.com/billkoul/AndrotomistLite
