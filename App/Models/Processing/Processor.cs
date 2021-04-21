@@ -34,14 +34,16 @@ namespace Androtomist.Models.Processing
             {
                 if ((PROCESS_TYPE)p.P_TYPE_ID == PROCESS_TYPE.STATIC || (PROCESS_TYPE)p.P_TYPE_ID == PROCESS_TYPE.HYBRID)
                 {
+                    //Demo version does not decompile - gets permissions and intets through terminal (demo only)
+                    //Decompile();
                     ExtractPackageName();
                     ExtractPermissions();
                     ExtractIntent();
-                    //Decompile();
-                    //GetApiCalls
+                    //GetApiCalls();
                 }
                 if ((PROCESS_TYPE)p.P_TYPE_ID == PROCESS_TYPE.DYNAMIC || (PROCESS_TYPE)p.P_TYPE_ID == PROCESS_TYPE.HYBRID)
                 {
+                    //Demo version does not perform dynamic analysis
                     t1 = new Terminal(true);
                     ConnectDevice();
                     InstallSample();
